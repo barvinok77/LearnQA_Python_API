@@ -1,9 +1,11 @@
 import pytest
+import allure
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.epic("Test cases for new user registration")
 class TestUserRegister(BaseCase):
     invalid_registration_data = ([
         {
@@ -38,6 +40,8 @@ class TestUserRegister(BaseCase):
         }
     ])
 
+    @allure.testcase('test case link', 'Test case title')
+    @allure.link('link to documentation')
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
 
@@ -46,6 +50,8 @@ class TestUserRegister(BaseCase):
         Assertions.assert_code_status(response, 200)
         Assertions.assert_json_has_key(response, "id")
 
+    @allure.testcase('test case link', 'Test case title')
+    @allure.issue('issue link')
     def test_create_user_with_existing_email(self):
         email = "vinkotov@example.com"
         data = self.prepare_registration_data(email)

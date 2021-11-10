@@ -1,8 +1,10 @@
+import allure
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.epic("Test cases for change user information")
 class TestUserEdit(BaseCase):
 
     def create_new_user(self):
@@ -12,6 +14,9 @@ class TestUserEdit(BaseCase):
         Assertions.assert_json_has_key(response, "id"), "New user not created"
         return response, user_data
 
+    @allure.feature('feature')
+    @allure.story('story')
+    @allure.description('description')
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -61,6 +66,9 @@ class TestUserEdit(BaseCase):
             "Wrong name of the user after edit"
         )
 
+    @allure.feature('feature')
+    @allure.story('story')
+    @allure.description('description')
     def test_edit_not_authorized_user(self):
         # Register
         create_response, user_data = self.create_new_user()
@@ -77,6 +85,9 @@ class TestUserEdit(BaseCase):
         assert edit_response.content.decode("utf-8") == "Auth token not supplied", \
             f"Unexpected response content {edit_response.content}"
 
+    @allure.feature('feature')
+    @allure.story('story')
+    @allure.description('description')
     def test_edit_other_authorized_user(self):
         # Register first user
         first_user_response, user_data = self.create_new_user()
@@ -135,6 +146,9 @@ class TestUserEdit(BaseCase):
             "User's first name shouldn't been changed but it did"
         )
 
+    @allure.feature('feature')
+    @allure.story('story')
+    @allure.description('description')
     def test_edit_authorized_user_incorrect_email(self):
         # Register
         create_response, user_data = self.create_new_user()
@@ -164,6 +178,9 @@ class TestUserEdit(BaseCase):
         assert edit_response.content.decode("utf-8") == "Invalid email format", \
             f"Unexpected response content {edit_response.content}"
 
+    @allure.feature('feature')
+    @allure.story('story')
+    @allure.description('description')
     def test_edit_authorized_user_short_firstname(self):
         # Register
         create_response, user_data = self.create_new_user()
